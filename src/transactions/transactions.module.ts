@@ -7,9 +7,14 @@ import { CreateTransactionUseCase } from './application/use-cases/create-transac
 import { TRANSACTION_REPOSITORY } from './constants/transaction-repository.token';
 import { TransactionsController } from './infrastructure/controllers/transactions.controller';
 import { UpdateTransactionStatusUseCase } from './application/use-cases/update-transaction-status.use-case';
+import { WompiModule } from 'src/wompi/wompi.module';
+import { PayTransactionUseCase } from './application/use-cases/pay-transaction.use-case';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Transaction])],
+  imports: [
+    TypeOrmModule.forFeature([Transaction]),
+    WompiModule,
+  ],
   controllers: [TransactionsController],
   providers: [
     {
@@ -18,6 +23,7 @@ import { UpdateTransactionStatusUseCase } from './application/use-cases/update-t
     },
     CreateTransactionUseCase,
     UpdateTransactionStatusUseCase,
+    PayTransactionUseCase,
   ],
   exports: [TRANSACTION_REPOSITORY],
 })

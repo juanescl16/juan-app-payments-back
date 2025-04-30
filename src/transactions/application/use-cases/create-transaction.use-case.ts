@@ -1,8 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { TransactionRepository } from '../../domain/repositories/transaction.repository';
 import { Transaction, TransactionStatus } from '../../domain/entities/transaction.entity';
+import { TransactionRepository } from 'src/transactions/domain/repositories/transaction.repository';
 import { Result } from 'src/common/core/result';
-import { TRANSACTION_REPOSITORY } from 'src/transactions/constants/transaction-repository.token';
+import { TRANSACTION_REPOSITORY } from '../../constants/transaction-repository.token';
+
 
 interface CreateTransactionInput {
   amount: number;
@@ -18,19 +19,27 @@ export class CreateTransactionUseCase {
     private readonly transactionRepository: TransactionRepository,
   ) {}
 
+  private generateReference(): string {
+    return `ref_${Date.now()}`;
+  }
+
   async execute(input: CreateTransactionInput): Promise<Result<Transaction>> {
-    if (input.amount <= 0) {
-      return Result.fail('El monto debe ser mayor que cero.');
+    try {
+      const reference = this.generateReference();
+
+      const transaction = await this.transactionRepository.create({
+        amount: input.amount,
+        customerName: input.customerName,
+        customerAddress: input.customerAddress,
+        customerPhone: input.customerPhone,
+        reference,
+        status: TransactionStatus.PENDING,
+      });
+      console.log('Transaction creada:', transaction);
+
+      return Result.ok(transaction);
+    } catch (error) {
+      return Result.fail('Error al crear la transacción');
     }
-
-    const transaction = await this.transactionRepository.create({
-      amount: input.amount,
-      customerName: input.customerName,
-      customerAddress: input.customerAddress,
-      customerPhone: input.customerPhone,
-      status: TransactionStatus.PENDING,
-    });
-
-    return Result.ok(transaction);
   }
 }

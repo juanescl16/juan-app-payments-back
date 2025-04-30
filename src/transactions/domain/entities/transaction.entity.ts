@@ -22,6 +22,10 @@ export class Transaction {
   @Column({ type: 'enum', enum: TransactionStatus, default: TransactionStatus.PENDING })
   status: TransactionStatus;
 
+  @ApiProperty({ example: 'ref_1714372801234', description: 'Referencia única de la transacción' })
+  @Column()
+  reference: string;
+
   @ApiProperty({ example: 'wompi_tx_12345', description: 'ID de transacción en Wompi' })
   @Column({ nullable: true })
   wompiTransactionId: string;
