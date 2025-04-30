@@ -66,11 +66,25 @@ export class WompiService {
         },
       });
   
+      console.error('❌ Wompi AQUII:', response.data);
       return response.data;
     } catch (error) {
-      console.error('❌ Wompi error completo:', JSON.stringify(error.response?.data || error.message, null, 2));
+      console.error('❌ Wompi Payment Error - Status:', error.response?.status);
+      console.error('❌ Wompi Payment Error - Data:', JSON.stringify(error.response?.data, null, 2));
+      console.error('❌ Wompi Payment Error - Headers:', error.response?.headers);
       throw new Error('Error procesando pago en Wompi');
     }
+  }
+  
+  async getTransactionStatus(wompiTransactionId: string): Promise<string> {
+    const url = `${this.wompiApiUrl}/transactions/${wompiTransactionId}`;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${this.privateKey}`,
+      },
+    });
+  
+    return response.data.data.status; // 'APPROVED' | 'DECLINED' | 'PENDING'
   }
   
 

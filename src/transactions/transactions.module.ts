@@ -9,10 +9,12 @@ import { TransactionsController } from './infrastructure/controllers/transaction
 import { UpdateTransactionStatusUseCase } from './application/use-cases/update-transaction-status.use-case';
 import { WompiModule } from 'src/wompi/wompi.module';
 import { PayTransactionUseCase } from './application/use-cases/pay-transaction.use-case';
+import { ProductsModule } from 'src/products/products.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Transaction]),
+    ProductsModule,
     WompiModule,
   ],
   controllers: [TransactionsController],

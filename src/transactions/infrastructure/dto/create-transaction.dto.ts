@@ -7,6 +7,11 @@ export class CreateTransactionDto {
   @Min(1)
   amount: number;
 
+  @ApiProperty({ example: 1, description: 'ID del producto a comprar' })
+  @IsNumber()
+  productId: number;
+
+
   @ApiProperty({ example: 'Juan Pérez', description: 'Nombre del cliente' })
   @IsString()
   @IsNotEmpty()

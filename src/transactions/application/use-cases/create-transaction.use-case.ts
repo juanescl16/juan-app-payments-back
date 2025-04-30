@@ -10,6 +10,7 @@ interface CreateTransactionInput {
   customerName: string;
   customerAddress: string;
   customerPhone: string;
+  productId: number;
 }
 
 @Injectable()
@@ -34,6 +35,7 @@ export class CreateTransactionUseCase {
         customerPhone: input.customerPhone,
         reference,
         status: TransactionStatus.PENDING,
+        productId: input.productId,
       });
       console.log('Transaction creada:', transaction);
 

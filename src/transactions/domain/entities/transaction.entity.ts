@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Product } from 'src/products/domain/entities/product.entity';
 
 export enum TransactionStatus {
   PENDING = 'PENDING',
@@ -13,6 +14,12 @@ export class Transaction {
   @ApiProperty({ example: 1, description: 'ID único de la transacción' })
   @PrimaryGeneratedColumn()
   id: number;
+
+  @ManyToOne(() => Product)
+  product: Product;
+
+  @Column()
+  productId: number;
 
   @ApiProperty({ example: 50000, description: 'Monto total de la transacción' })
   @Column('decimal', { precision: 10, scale: 2 })

@@ -6,6 +6,12 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
+
+  app.enableCors({
+    origin: process.env.FRONT_URL ?? 'http://localhost:5173/',
+    credentials: true,
+  })
+
   const config = new DocumentBuilder()
     .setTitle('Payment API')
     .setDescription('API para pagos con Wompi Sandbox')
