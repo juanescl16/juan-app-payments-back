@@ -23,8 +23,8 @@ Backend API desarrollada como parte de la prueba técnica para integración de p
 1. Clonar el repositorio:
 
 ```bash
-git clone https://github.com/tu-usuario/tu-repo.git
-cd tu-repo
+git clone https://github.com/juanescl16/juan-app-payments-back.git
+cd juan-app-payments-back
 ```
 
 2. Instalar dependencias:
@@ -74,3 +74,8 @@ Para generar reporte de cobertura:
 ```
 npm run test:cov
 ```
+
+Notas:
+El sistema simula un flujo de compra de productos y pagos con tarjeta.
+Usa principios de arquitectura limpia para mantener el código desacoplado y testeable.
+Las pruebas cubren los principales casos de uso (crear transacción, pagar, actualizar estado, etc).

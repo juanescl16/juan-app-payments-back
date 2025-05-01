@@ -20,7 +20,7 @@ import { TransactionsModule } from './transactions/transactions.module';
         database: configService.get('DB_NAME'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true, 
-        logging: true,
+        //logging: true,
       }),
     }),
     ProductsModule,
